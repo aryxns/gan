@@ -1,5 +1,4 @@
-pandas==1.1.4
-streamlit_nightly==0.67.2.dev20200929
-sdv==0.6.1
-ctgan==0.3.0
+pandas
+sdv
+ctgan
 streamlit==0.74.1
