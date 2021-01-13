@@ -12,6 +12,7 @@ if menu == "Conditional GANS":
     st.title("CGANS")
     st.write("Upload a CSV file (preferrably not too large) and use the command bar to start the magic.")
     st.write("--------------------------------------")
+    st.set_option('deprecation.showfileUploaderEncoding', False)
     file_upload = st.sidebar.file_uploader("Upload CSV")
     if file_upload:
         df = pd.read_csv(file_upload)
