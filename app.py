@@ -41,7 +41,7 @@ if menu == "Conditional GANS":
             samples = ctgan.sample(100)
             st.success("Successfully generated {} rows of data".format(str(amount)))
             st.balloons()
-            st.write(samples.head())
+            st.write(samples)
             ktestacc = KSTest.compute(newdf, samples)
             ldacc = LogisticDetection.compute(newdf, samples)
             st.write("KTest accuracy: " + str(ktestacc*100) + "%")
