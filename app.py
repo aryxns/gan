@@ -38,7 +38,7 @@ if menu == "Conditional GANS":
                 progress_bar.progress(i + 1)
             ctgan = CTGANSynthesizer(epochs=num_epochs)
             ctgan.fit(newdf, discrete_columns)
-            samples = ctgan.sample(amount)
+            samples = ctgan.sample(int(amount))
             st.success("Successfully generated {} rows of data".format(str(amount)))
             st.balloons()
             st.write(samples)
