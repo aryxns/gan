@@ -2,9 +2,13 @@ import streamlit as st
 from ctgan import CTGANSynthesizer
 from ctgan import load_demo
 import pandas as pd
+from sklearn.preprocessing import LabelEncoder
 from sdv.metrics.tabular import CSTest, KSTest
+from faker import Faker
 from sdv.metrics.tabular import LogisticDetection, SVCDetection
 
+
+le = LabelEncoder()
 choices = ["Home","Conditional GANS"]
 
 def df_cat(arg):
@@ -12,12 +16,15 @@ def df_cat(arg):
     cols = df.columns
     cat_columns = df._get_numeric_data().columns
     to_delete_columns = list(set(cols) - set(cat_columns))
-    mydf = df.drop(to_delete_columns, axis=1)
-    mydf = mydf.dropna(0)
+    st.warning("Text columns detected: " + str(to_delete_columns))
+    st.warning("Converting text columns to numerical format...")
+    for i in to_delete_columns:
+        df[i] = le.fit_transform(df[i].astype('str'))
+    mydf = df
     return mydf
 
 menu = st.sidebar.selectbox("Menu", choices)
-
+st.set_option('deprecation.showfileUploaderEncoding', False)
 if menu == "Conditional GANS":
     st.title("CGANS")
     st.write("Upload a CSV file (preferrably not too large) and use the command bar to start the magic.")
@@ -28,6 +35,7 @@ if menu == "Conditional GANS":
         newdf = df_cat(df)
         st.write(newdf.head())
         amount = st.sidebar.text_input("How many rows of data you need to generate?")
+        #name = st.sidebar.text_input("Enter name of column with Name: ")
         columns = st.sidebar.text_input("Enter name of discrete column: ")
         discrete_columns = [columns]
         num_epochs = st.sidebar.slider("Number of epochs to train: ",20, 100)
