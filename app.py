@@ -17,10 +17,11 @@ def df_cat(arg):
     cat_columns = df._get_numeric_data().columns
     to_delete_columns = list(set(cols) - set(cat_columns))
     st.warning("Text columns detected: " + str(to_delete_columns))
-    st.warning("Converting text columns to numerical format...")
+    st.warning("Converting text columns to numerical format and removing any NaN rows: ")
     for i in to_delete_columns:
         df[i] = le.fit_transform(df[i].astype('str'))
     mydf = df
+    mydf = mydf.dropna()
     return mydf
 
 menu = st.sidebar.selectbox("Menu", choices)
