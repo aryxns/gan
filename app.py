@@ -70,6 +70,7 @@ if menu == "Conditional GANS":
             progress_bar = st.progress(0)
             for i in range(100):
                 progress_bar.progress(i + 1)
+            st.write("This is taking some time...")
             ctgan = CTGANSynthesizer(epochs=num_epochs)
             ctgan.fit(newdf, discrete_columns)
             samples = ctgan.sample(int(amount))
@@ -86,6 +87,7 @@ if menu == "Conditional GANS":
             progress_bar = st.progress(0)
             for i in range(100):
                 progress_bar.progress(i + 1)
+            st.write("This is taking some time...")
             ctgan = CTGANSynthesizer(epochs=num_epochs)
             ctgan.fit(newdf, discrete_columns)
             samples = ctgan.sample(int(amount))
